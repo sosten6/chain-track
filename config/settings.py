@@ -1,16 +1,35 @@
 from pydantic_settings import BaseSettings
+from typing import Optional
 
 class Settings(BaseSettings):
+    # Telegram
     TELEGRAM_BOT_TOKEN: str
+
+    # Database
     DATABASE_URL: str
+
+    # Covalent (EVM multi-chain)
+    COVALENT_API_KEY: Optional[str] = None
+
+    # Helius (Solana)
+    HELIUS_API_KEY: Optional[str] = None
+
+    # Alchemy
     ALCHEMY_API_KEY: str
-    ALCHEMY_ETH_WS_URL: str = "wss://eth-mainnet.g.alchemy.com/v2/"
-    ALCHEMY_BASE_WS_URL: str = "wss://base-mainnet.g.alchemy.com/v2/"
+    ALCHEMY_ETH_WS_URL: Optional[str] = None
+    ALCHEMY_BASE_WS_URL: Optional[str] = None
 
-    DEFAULT_MIN_TRADE_USD: float = 500.0
-    DEFAULT_ROI_WEIGHT: float = 0.7
-    DEFAULT_LARGE_SELL_THRESHOLD: float = 0.25
+    # Block explorers
+    ETHERSCAN_API_KEY: Optional[str] = None
+    BASESCAN_API_KEY: Optional[str] = None
+    BSCSCAN_API_KEY: Optional[str] = None
 
-    model_config = {"env_file": ".env", "extra": "ignore"}
+    # Moralis (free, great for BSC/BASE holders)
+    MORALIS_API_KEY: Optional[str] = None
+
+    class Config:
+        env_file = ".env"
+        extra = "ignore"
+
 
 settings = Settings()

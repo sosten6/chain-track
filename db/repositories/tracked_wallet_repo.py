@@ -1,4 +1,4 @@
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from db.models.tracked_wallet import TrackedWallet
 
@@ -21,7 +21,6 @@ class TrackedWalletRepository:
         return True
 
     async def remove_tracked_token(self, telegram_id: int, token_id: int):
-        """Remove token from user's tracking list"""
         stmt = delete(TrackedWallet).where(
             TrackedWallet.telegram_id == telegram_id,
             TrackedWallet.token_id == token_id
@@ -29,3 +28,15 @@ class TrackedWalletRepository:
         await self.session.execute(stmt)
         await self.session.commit()
         return True
+
+    async def mute_wallet(self, telegram_id: int, wallet_address: str):
+        stmt = (
+            update(TrackedWallet)
+            .where(
+                TrackedWallet.telegram_id == telegram_id,
+                TrackedWallet.wallet_address == wallet_address,
+            )
+            .values(muted=True)
+        )
+        await self.session.execute(stmt)
+        await self.session.commit()

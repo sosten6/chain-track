@@ -11,5 +11,7 @@ class Token(Base):
     name = Column(String(100), nullable=False)
     symbol = Column(String(20), nullable=False)
     liquidity_usd = Column(Float, default=0.0)
+    price_usd = Column(Float, default=0.0, nullable=True)        # ← NEW
+    market_cap_usd = Column(Float, default=0.0, nullable=True)   # ← NEW
     is_verified = Column(Boolean, default=False)
     last_metadata_update = Column(DateTime, default=datetime.utcnow)

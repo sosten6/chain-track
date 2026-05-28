@@ -1,0 +1,21 @@
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Render / Build files
+runtime.txt
+Procfile
+
+# IDE files
+.vscode/
+.idea/
+
+# Database backups (if any)
+*.db
